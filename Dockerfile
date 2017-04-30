@@ -93,7 +93,6 @@ RUN echo "command=/root/.phpbrew/php/php-${PHP_VERSION}/sbin/php-fpm --nodaemoni
 RUN echo "autorestart=true" >> /etc/supervisor/conf.d/program.conf
 RUN echo "" >> /etc/supervisor/conf.d/program.conf
 
-RUN echo "" >> /etc/supervisor/conf.d/program.conf
 RUN echo "[program:webdriver]" >> /etc/supervisor/conf.d/program.conf
 RUN echo "command=webdriver-manager start --versions.standalone=${SELENIUM_VERSION}" >> /etc/supervisor/conf.d/program.conf
 RUN echo "autorestart=true" >> /etc/supervisor/conf.d/program.conf

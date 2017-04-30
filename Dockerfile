@@ -23,10 +23,12 @@ RUN apt-get install -y default-jre
 #
 # npm
 #
+ENV SELENIUM_VERSION 3.4.0
+
 RUN apt-get install -y npm
 RUN npm install -g n && n stable && apt-get purge -y nodejs npm
 RUN npm install -g gulp-cli phantomjs-prebuilt webdriver-manager yarn
-RUN webdriver-manager update --versions.standalone=3.4.0
+RUN webdriver-manager update --versions.standalone=${SELENIUM_VERSION}
 
 #
 # nginx
@@ -88,5 +90,11 @@ RUN echo "" >> /root/.phpbrew/php/php-${PHP_VERSION}/var/db/opcache.ini
 RUN echo "" >> /etc/supervisor/conf.d/program.conf
 RUN echo "[program:php-fpm]" >> /etc/supervisor/conf.d/program.conf
 RUN echo "command=/root/.phpbrew/php/php-${PHP_VERSION}/sbin/php-fpm --nodaemonize" >> /etc/supervisor/conf.d/program.conf
+RUN echo "autorestart=true" >> /etc/supervisor/conf.d/program.conf
+RUN echo "" >> /etc/supervisor/conf.d/program.conf
+
+RUN echo "" >> /etc/supervisor/conf.d/program.conf
+RUN echo "[program:webdriver]" >> /etc/supervisor/conf.d/program.conf
+RUN echo "command=webdriver-manager start --versions.standalone=${SELENIUM_VERSION}" >> /etc/supervisor/conf.d/program.conf
 RUN echo "autorestart=true" >> /etc/supervisor/conf.d/program.conf
 RUN echo "" >> /etc/supervisor/conf.d/program.conf

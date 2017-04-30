@@ -55,7 +55,7 @@ RUN gem install capistrano -v "~> 3.8"
 #
 # phpbrew
 #
-RUN apt-get install -y autoconf libbz2-dev libcurl4-openssl-dev libmcrypt-dev libreadline-dev libxml2-dev libxslt1-dev php
+RUN apt-get install -y autoconf libbz2-dev libcurl4-openssl-dev libmcrypt-dev libpng-dev libreadline-dev libxml2-dev libxslt1-dev php
 RUN curl https://github.com/phpbrew/phpbrew/raw/master/phpbrew -L -o /usr/local/bin/phpbrew
 RUN chmod +x /usr/local/bin/phpbrew
 
@@ -78,6 +78,7 @@ COPY conf/php-fpm/www.conf /root/.phpbrew/php/php-${PHP_VERSION}/etc/php-fpm.d/w
 
 # TODO: @see https://github.com/phpbrew/phpbrew/issues/761
 RUN source /root/.phpbrew/bashrc && phpbrew ext install opcache
+RUN source /root/.phpbrew/bashrc && phpbrew ext install gd
 
 RUN echo "" >> /root/.phpbrew/php/php-${PHP_VERSION}/var/db/opcache.ini
 RUN echo "opcache.enable_cli=1" >> /root/.phpbrew/php/php-${PHP_VERSION}/var/db/opcache.ini

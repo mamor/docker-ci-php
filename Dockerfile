@@ -61,7 +61,7 @@ RUN apt-get install -y autoconf libbz2-dev libcurl4-openssl-dev libmcrypt-dev li
 RUN curl https://github.com/phpbrew/phpbrew/raw/master/phpbrew -L -o /usr/local/bin/phpbrew
 RUN chmod +x /usr/local/bin/phpbrew
 
-ENV PHP_VERSION 7.1.4
+ENV PHP_VERSION 7.2.3
 
 RUN phpbrew init
 RUN phpbrew install ${PHP_VERSION} +default +fpm +mysql +opcache +pdo +phpdbg +sqlite
